@@ -11,24 +11,31 @@ public class LinearEquationLogic {
         while (cont) {
             LinearEquation le = new LinearEquation();
 
+            System.out.println();
             System.out.print("Please input a coordinate pair (eg: (1, 3.4)): ");
-            String coord1 = scan.nextLine();
-            coord1 = coord1.substring(1).substring(0, coord1.length() - 2);
-            double x1 = Double.parseDouble(coord1.split(", ")[0]);
-            double y1 = Double.parseDouble(coord1.split(", ")[1]);
+            double[] arrCoords = getCoordValues();
+            double x1 = arrCoords[0];
+            double y1 = arrCoords[1];
 
-            System.out.print("Please input a second coordinate pair (eg: (1, 3.4)): ");
-            String coord2 = scan.nextLine();
-            coord2 = coord2.substring(1).substring(0, coord2.length() - 2);
-            double x2 = Double.parseDouble(coord2.split(", ")[0]);
-            double y2 = Double.parseDouble(coord2.split(", ")[1]);
+            System.out.print("Please input a second coordinate pair: ");
+            arrCoords = getCoordValues();
+            double x2 = arrCoords[0];
+            double y2 = arrCoords[1];
 
             System.out.println(le.lineInfo(x1, y1, x2, y2));
 
-            le.coordForX(x1, y1, x2, y2);
+            System.out.println(le.coordForX(x1, y1, x2, y2));
 
-            System.out.print("Would you like to go again? ");
-            cont = scan.nextLine().equals("yes");
+            System.out.print("Would you like to go again? y/n: ");
+            cont = scan.nextLine().equals("y");
         }
+    }
+
+    public double[] getCoordValues() {
+        String coords = scan.nextLine();
+        coords = coords.substring(1).substring(0, coords.length() - 2);
+        double x1 = Double.parseDouble(coords.split(", ")[0]);
+        double y1 = Double.parseDouble(coords.split(", ")[1]);
+        return new double[]{x1, y1};
     }
 }
