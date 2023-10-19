@@ -5,19 +5,19 @@ public class LinearEquation {
     public LinearEquation() { }
 
     private String dis(double x1, double y1, double x2, double y2) {
-        return format(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
+        return roundedToHundreth(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
     }
 
-    private String format(double num) {
+    private String roundedToHundreth(double toRound) {
         DecimalFormat df = new DecimalFormat("##.00");
-        return df.format(num);
+        return df.format(toRound);
     }
 
     private double yIntercept(double x1, double y1, double x2, double y2) {
         return (y1 - (((y2 - y1) / (x2 - x1)) * x1));
     }
 
-    private double slopeDec(double x1, double y1, double x2, double y2) {
+    public double slopeDec(double x1, double y1, double x2, double y2) {
 
         return ((y2 - y1) / (x2 - x1));
     }
@@ -36,47 +36,65 @@ public class LinearEquation {
         double slope = slopeDec(x1, y1, x2, y2);
         String response = "y = ";
 
-        if(slope != 0) {
+        if(slope != 0 && x1 != x2) {
             if(slope == (int) slope) {
+                slope = (int) slope;
                 if (slope == 1) {
+                    response += "x ";
                 }
                 if (slope == -1) {
+                    response += "-x ";
+                }
+                else {
+                    response += slope + "x ";
+                }
+            }
+            else {
+                response += slopeFrac(x1, y1, x2, y2) + "x ";
+            }
+
+        }
+        if(yIntercept(x1, y1, x2, y2) > 0) {
+            response += "+" + yIntercept(x1, y1, x2, y2);
+        }
+        else {
+            response += "-" + Math.abs(yIntercept(x1, y1, x2, y2));
+        }
+        if(slope == 0) {
+            if(yIntercept(x1, y1, x2, y2) == 0) {
+                response += "0";
+            }
+            else {
+                if(yIntercept(x1, y1, x2, y2) > 0) {
+                    response += "+ " + yIntercept(x1, y1, x2, y2);
+                }
+                else {
+                    response += "- " + Math.abs(yIntercept(x1, y1, x2, y2));
                 }
             }
         }
-        if(slope == 1) {
-            return "y = x + " + yIntercept(x1, y1, x2, y2);
+        if(x1 == x2) {
+            if(y1 == y2) {
+                response = "Not a line. Point at: (" + x1 + ", " + y1 + ")";
+            }
+            else {
+                response = "x = " + x1;
+            }
         }
-        if(slope == -1) {
-            return "y = -x + " + yIntercept(x1, y1, x2, y2);
-        }
-        if(slope == (int) slope) {
-            slope = (int) slope;
-        }
-        if(slope == 0 && yIntercept(x1, y1, x2, y2) == 0) {
-            return "y = 0";
-        }
-        if(yIntercept(x1, y1, x2, y2) == 0) {
-            response += slope + "x";
-        }
-        return "";
+        return response;
     }
 
-    public String coordForX(double x1, double y1, double x2, double y2) {
-        Scanner scan = new Scanner(System.in);
-
-        System.out.print("Enter an x value to see what the corresponding y value would be: ");
-        double x = scan.nextDouble();
+    public String coordForX(double x, double x1, double y1, double x2, double y2) {
         return "(" + x + ", " + (slopeDec(x1, y1, x2, y2) * x + yIntercept(x1, y1, x2, y2)) + ")";
     }
 
     public String lineInfo(double x1, double y1, double x2, double y2) {
 
-        return "Line info:\n" +
-                "Distance between points: " +  dis(x1, y1, x2, y2) +
-                "\nSlope: " + slopeFrac(x1, y1, x2, y2) +
-                "\ny-intercept: " + yIntercept(x1, y1, x2, y2) +
-                "\nEquation: " + equation(x1, y1, x2, y2);
+        return "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")" +
+                "\nThe equation of the line between the points is: " + equation(x1, y1, x2, y2) +
+                "\nThe slope of this line is: " + slopeFrac(x1, y1, x2, y2) +
+                "\nThe y-intercept of this line is: " + yIntercept(x1, y1, x2, y2) +
+                "\nThe distance between these two points is: " +  dis(x1, y1, x2, y2);
     }
 
 }

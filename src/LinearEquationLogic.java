@@ -1,3 +1,4 @@
+import java.util.Dictionary;
 import java.util.Scanner;
 
 public class LinearEquationLogic {
@@ -12,6 +13,8 @@ public class LinearEquationLogic {
             LinearEquation le = new LinearEquation();
 
             System.out.println();
+            System.out.println("Welcome to the linear equation calculator!");
+
             System.out.print("Please input a coordinate pair (eg: (1, 3.4)): ");
             double[] arrCoords = getCoordValues();
             double x1 = arrCoords[0];
@@ -21,12 +24,23 @@ public class LinearEquationLogic {
             arrCoords = getCoordValues();
             double x2 = arrCoords[0];
             double y2 = arrCoords[1];
+            System.out.println(le.slopeDec(x1, y1, x2, y2));
 
+            System.out.println();
             System.out.println(le.lineInfo(x1, y1, x2, y2));
 
-            System.out.println(le.coordForX(x1, y1, x2, y2));
+            String ans = "";
+            while (!ans.equals("stop")) {
+                System.out.println();
+                System.out.print("Enter an x value to see what the corresponding y value would be (enter stop to stop): ");
+                ans = scan.nextLine();
+                if (!ans.equals("stop")) {
+                    System.out.println(le.coordForX(Double.parseDouble(ans), x1, y1, x2, y2));
+                }
+            }
 
-            System.out.print("Would you like to go again? y/n: ");
+            System.out.println();
+            System.out.print("Would you like to choose another line?     y/n: ");
             cont = scan.nextLine().equals("y");
         }
     }
