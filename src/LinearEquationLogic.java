@@ -24,7 +24,6 @@ public class LinearEquationLogic {
             arrCoords = getCoordValues();
             double x2 = arrCoords[0];
             double y2 = arrCoords[1];
-            System.out.println(le.slopeDec(x1, y1, x2, y2));
 
             System.out.println();
             System.out.println(le.lineInfo(x1, y1, x2, y2));
