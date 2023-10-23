@@ -9,12 +9,13 @@ public class LinearEquationLogic {
 
     public void start() {
         boolean cont = true;
-        while (cont) {
+
             LinearEquation le = new LinearEquation();
 
             System.out.println();
             System.out.println("Welcome to the linear equation calculator!");
 
+        while (cont) {
             System.out.print("Please input a coordinate pair (eg: (1, 3.4)): ");
             double[] arrCoords = getCoordValues();
             double x1 = arrCoords[0];
@@ -39,7 +40,7 @@ public class LinearEquationLogic {
             }
 
             System.out.println();
-            System.out.print("Would you like to choose another line?     y/n: ");
+            System.out.print("Would you like to choose another line? y/n: ");
             cont = scan.nextLine().equals("y");
         }
     }
