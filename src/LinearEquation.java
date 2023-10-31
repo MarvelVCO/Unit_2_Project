@@ -1,5 +1,4 @@
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 public class LinearEquation {
     public LinearEquation() { }
@@ -14,7 +13,7 @@ public class LinearEquation {
     }
 
     private double yIntercept(double x1, double y1, double x2, double y2) {
-        return Double.parseDouble(roundedToHundreth(y1 - (((y2 - y1) / (x2 - x1)) * x1)));
+        return x1 == x2 ? 0 : Double.parseDouble(roundedToHundreth(y1 - (((y2 - y1) / (x2 - x1)) * x1)));
     }
 
     private double slopeDec(double x1, double y1, double x2, double y2) {
@@ -96,7 +95,7 @@ public class LinearEquation {
         return "The two points are: (" + x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ")" +
                 "\nThe equation of the line between the points is: " + equation(x1, y1, x2, y2) +
                 "\nThe slope of this line is: " + slopeDec(x1, y1, x2, y2) +
-                "\nThe y-intercept of this line is: " + yIntercept(x1, y1, x2, y2) +
+                (x1 == x2 ? "\nThis line doesnt have a y-intercept" : "\nThe y-intercept of this line is: " + yIntercept(x1, y1, x2, y2)) +
                 "\nThe distance between these two points is: " +  dis(x1, y1, x2, y2);
     }
 
